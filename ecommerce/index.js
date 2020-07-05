@@ -6,6 +6,7 @@ const app = express();
 //esto con el objetivo de eliminar problemas de compatibilidad
 //si el servidor en donde se ejecute sea de diferentes sistemas operativos
 const productsRouter = require(path.join(__dirname, 'routes/products'));
+const productsApiRouter = require(path.join(__dirname, 'routes/api/products'));
 
 //Indica que cuando busque archivos en donde el prefije use /static los busque en la carpeta de public
 app.use("/static", express.static(path.join(__dirname, "public")));
@@ -18,6 +19,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 app.use('/products', productsRouter);
+app.use('/api/products', productsApiRouter);
 
 const server = app.listen(8000, function() {
     console.log(`Listening http://localhost:${server.address().port}`);
