@@ -8,6 +8,10 @@ const app = express();
 const productsRouter = require(path.join(__dirname, 'routes/products'));
 const productsApiRouter = require(path.join(__dirname, 'routes/api/products'));
 
+//Body Parse no es necesario en las ultimas versiones de express, en
+//versiones anteriores se instala usando el comando npm i -S body-parse
+//const bodyParse = require('body-parse');
+
 //Indica que cuando busque archivos en donde el prefije use /static los busque en la carpeta de public
 app.use("/static", express.static(path.join(__dirname, "public")));
 //Si no se especifica express sabe que cuando usa un archivo fisico debe de buscarlo en la carpeta public
@@ -20,6 +24,10 @@ app.set("view engine", "pug");
 
 app.use('/products', productsRouter);
 app.use('/api/products', productsApiRouter);
+
+//El body Parse se usa/activa de la siguiente manera
+//app.use(bodyParse.json()); //Versiones anteriores de express
+app.use(express.json()); //En las últimas versiones ya es parte de express
 
 const server = app.listen(8000, function() {
     console.log(`Listening http://localhost:${server.address().port}`);
