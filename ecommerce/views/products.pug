@@ -1,0 +1,11 @@
+ul
+    each product in products
+        li
+            strong= product.name
+            p= product.price
+            p Comprar
+
+//-
+    Pug usa un sistema de indentado para generar el etiquetado html que se muestra en las vistas.
+    Para asignar un valor/contenido a una etiqueta se usa el signo = cuando este proviene un variable que recibe la vista.
+    Cuando se quieren mostrar valores literales simplemente ya no se usa el signo de = (igual).
