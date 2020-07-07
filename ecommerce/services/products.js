@@ -9,19 +9,19 @@ class ProductsService {
         return Promise.resolve(productsMocks);
     }
 
-    getProduct({ productId }) {
+    getProduct ({ productId }) {
         return Promise.resolve(productsMocks[0]);
     }
 
-    createProduct({ product }) {
+    createProduct ({ product }) {
         return Promise.resolve(productsMocks[0]);
     }
 
-    updateProduct({ productId, product }) {
+    updateProduct ({ productId, product }) {
         return Promise.resolve(productsMocks[0]);
     }
 
-    deleteProduct({ productID }) {
+    deleteProduct ({ productID }) {
         return Promise.resolve(productsMocks[0]);
     }
 }
