@@ -105,3 +105,6 @@ dist
 
 # Custom for Node JS
 build/
+
+# Ignore environment configuration files
+.env
