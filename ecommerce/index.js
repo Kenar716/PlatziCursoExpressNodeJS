@@ -10,6 +10,12 @@ const productsApiRouter = require(path.join(__dirname, 'routes/api/products'));
 // versiones anteriores se instala usando el comando npm i -S body-parser
 // const bodyParser = require('body-parser');
 
+const {
+    logErrors,
+    clientErrorHandler,
+    errorHandler
+} = require('./utils/middlewares/errorHandlers');
+
 // app
 const app = express();
 
@@ -33,6 +39,11 @@ app.set('view engine', 'pug');
 // Routes
 app.use('/products', productsRouter);
 app.use('/api/products', productsApiRouter);
+
+// Error handlers
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
 // Redirect
 app.get('/', function (req, res) {
