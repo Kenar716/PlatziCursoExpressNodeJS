@@ -3,6 +3,15 @@ const router = express.Router();
 const ProductsService = require('../../services/products');
 const productService = new ProductsService();
 
+const validation = require('../../utils/middlewares/validationHandler');
+
+const {
+    productIdSchema,
+    productTagSchema,
+    createProductSchema,
+    updateProductSchema
+} = require('../../utils/schemas/products');
+
 // List
 router.get('/', async function (req, res, next) {
     const { tags } = req.query;
@@ -39,7 +48,7 @@ router.get('/:productId', async function (req, res, next) {
 });
 
 // Create
-router.post('/', async function (req, res, next) {
+router.post('/', validation(createProductSchema), async function (req, res, next) {
     const { body: product } = req;
     console.log('req', req.body);
 
@@ -56,22 +65,25 @@ router.post('/', async function (req, res, next) {
 });
 
 // Replace / Create
-router.put('/:productId', async function (req, res, next) {
-    const { productId } = req.params;
-    const { body: product } = req;
-    console.log('req', req.params, req.body);
+router.put('/:productId',
+    validation({ productId: productIdSchema }, 'params'),
+    validation(updateProductSchema),
+    async function (req, res, next) {
+        const { productId } = req.params;
+        const { body: product } = req;
+        // console.log('req', req.params, req.body);
 
-    try {
-        const updatedProduct = await productService.updateProduct({ productId, product });
+        try {
+            const updatedProduct = await productService.updateProduct({ productId, product });
 
-        res.status(200).json({
-            data: updatedProduct,
-            messsage: 'product updated'
-        });
-    } catch (err) {
-        next(err);
-    }
-});
+            res.status(200).json({
+                data: updatedProduct,
+                messsage: 'product updated'
+            });
+        } catch (err) {
+            next(err);
+        }
+    });
 
 // Delete
 router.delete('/:productId', async function (req, res, next) {
