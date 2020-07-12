@@ -108,3 +108,6 @@ build/
 
 # Ignore environment configuration files
 .env
+
+# Ignore test coverage reports
+.nyc_output
