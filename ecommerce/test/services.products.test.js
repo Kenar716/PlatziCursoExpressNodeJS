@@ -12,7 +12,7 @@ const {
     filteredProductsMock
 } = require('../utils/mocks/products');
 
-describe('services - products', function () {
+describe/* .only */('services - products', function () {
     const ProductsService = proxyquire('../services/products', {
         '../lib/mongo': MongoLibMock
     });
