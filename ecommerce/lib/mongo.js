@@ -1,5 +1,6 @@
 const { MongoClient, ObjectId } = require('mongodb');
 const { config } = require('../config');
+const debug = require('debug')('app:mongo');
 
 const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
@@ -20,7 +21,7 @@ class MongoLib {
                     reject(error);
                 }
 
-                console.log('Connect successfully to mongo');
+                debug('Connect successfully to mongo');
                 resolve(this.client.db(this.dbName));
             });
         });

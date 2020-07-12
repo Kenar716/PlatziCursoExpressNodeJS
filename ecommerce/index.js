@@ -22,6 +22,8 @@ const isRequestAjaxOrApi = require('./utils/isRequestAjaxOrApi');
 
 const boom = require('boom');
 
+const debug = require('debug')('app:server');
+
 // app
 const app = express();
 
@@ -72,5 +74,5 @@ app.use(errorHandler);
 
 // server
 const server = app.listen(8000, function () {
-    console.log(`Listening http://localhost:${server.address().port}`);
+    debug(`Listening http://localhost:${server.address().port}`);
 });
