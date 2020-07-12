@@ -6,6 +6,7 @@ const path = require('path');
 // si el servidor en donde se ejecute sea de diferentes sistemas operativos
 const productsRouter = require(path.join(__dirname, 'routes/views/products'));
 const productsApiRouter = require(path.join(__dirname, 'routes/api/products'));
+const authApiRouter = require(path.join(__dirname, 'routes/api/auth'));
 // Body Parser no es necesario en las ultimas versiones de express, en
 // versiones anteriores se instala usando el comando npm i -S body-parser
 // const bodyParser = require('body-parser');
@@ -44,6 +45,7 @@ app.set('view engine', 'pug');
 // Routes
 app.use('/products', productsRouter);
 app.use('/api/products', productsApiRouter);
+app.use('/api/auth', authApiRouter);
 
 // Redirect
 app.get('/', function (req, res) {
