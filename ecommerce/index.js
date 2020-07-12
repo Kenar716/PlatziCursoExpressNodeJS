@@ -12,9 +12,14 @@ const productsApiRouter = require(path.join(__dirname, 'routes/api/products'));
 
 const {
     logErrors,
+    wrapErrors,
     clientErrorHandler,
     errorHandler
 } = require('./utils/middlewares/errorHandlers');
+
+const isRequestAjaxOrApi = require('./utils/isRequestAjaxOrApi');
+
+const boom = require('boom');
 
 // app
 const app = express();
@@ -40,16 +45,30 @@ app.set('view engine', 'pug');
 app.use('/products', productsRouter);
 app.use('/api/products', productsApiRouter);
 
-// Error handlers
-app.use(logErrors);
-app.use(clientErrorHandler);
-app.use(errorHandler);
-
 // Redirect
 app.get('/', function (req, res) {
     res.redirect('/products');
 });
 
+app.use(function (req, res, next) {
+    if (isRequestAjaxOrApi(req)) {
+        const {
+            output: { statusCode, payload }
+        } = boom.notFound();
+
+        res.status(statusCode).json(payload);
+    }
+
+    res.status(404).render('404');
+});
+
+// Error handlers
+app.use(logErrors);
+app.use(wrapErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
+
+// server
 const server = app.listen(8000, function () {
     console.log(`Listening http://localhost:${server.address().port}`);
 });
