@@ -24,10 +24,14 @@ const boom = require('boom');
 
 const debug = require('debug')('app:server');
 
+const helmet = require('helmet');
+
 // app
 const app = express();
 
 // middlewares
+app.use(helmet());
+
 // El body Parser se usa/activa de la siguiente manera
 // app.use(bodyParser.json()); //Versiones anteriores de express
 app.use(express.json()); // En las últimas versiones ya es parte de express
