@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "NODE_ENV=production node index",
+    "build": "cd public/assets && cleancss -o main.min.css main.css",
     "dev": "nodemon index",
     "dev:inspect": "nodemon --inspect index",
     "dev:debug": "DEBUG=express:*,app:* npm run dev",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "chalk": "^4.1.0",
+    "clean-css-cli": "^4.3.0",
     "eslint": "^7.4.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
